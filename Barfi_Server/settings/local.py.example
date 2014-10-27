@@ -1,18 +1,11 @@
-# Local Development Django settings for vcweb
+# Local Development Django settings
 from .base import *
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
-CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.memcached.PyLibMCCache',
-        'LOCATION': '127.0.0.1:11211',
-    }
-}
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'CUSTOMIZE_ME',
         'USER': 'CUSTOMIZE_ME',
         'PASSWORD': 'CUSTOMIZE_ME',
