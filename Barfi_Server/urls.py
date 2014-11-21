@@ -1,6 +1,9 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from django.contrib.auth.models import User
+
+from api.models import CalendarEvent
+
 from rest_framework import routers, serializers, viewsets
 
 
@@ -10,16 +13,27 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
         model = User
         fields = ('url', 'username', 'email', 'is_staff')
 
+class CalendarEventSerializer(serializers.HyperlinkedModelSerializer):
+    user = serializers.SlugRelatedField(slug_field='email')
+ 
+    class Meta:
+    	model = CalendarEvent
+	fields = ('url', 'start_date', 'end_date', 'status', 'recurring', 'user')
+
 
 # ViewSets define the view behavior.
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
+class CalendarEventViewSet(viewsets.ModelViewSet):
+    queryset = CalendarEvent.objects.all()
+    serializer_class = CalendarEventSerializer
 
 # Routers provide an easy way of automatically determining the URL conf.
 router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)
+router.register(r'calendar/events', CalendarEventViewSet)
 
 
 urlpatterns = patterns('',
