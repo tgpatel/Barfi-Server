@@ -55,7 +55,7 @@ router.register(r'action/events', ActionEventViewSet)
 urlpatterns = patterns('',
     # Examples:
     # url(r'^$', 'Barfi_Server.views.home', name='home'),
-    # url(r'^blog/', include('blog.urls')),
+   url(r'^api/', include('api.urls')),
 
     url(r'^', include(router.urls)),
     url(r'^admin/', include(admin.site.urls)),
